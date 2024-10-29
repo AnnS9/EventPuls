@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ event.eventName }}</h1>
+<p>{{ event.description }}</p>
+<p>Date: {{ event.date }}</p>
+<p>Location: {{ event.location }}</p>
+
+<p>Total Votes: {{ total_votes }}</p>
+
+<form method="POST" action="{{ url_for('vote', event_id=event.eventId) }}">
+    {{ form.hidden_tag() }}
+    {{ form.submit() }}
+</form>
+{% endblock %}

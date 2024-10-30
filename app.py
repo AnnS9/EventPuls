@@ -142,26 +142,28 @@ def admin_event_detail(event_id):
 @app.route('/events/add', methods=['GET', 'POST'])
 def add_event():
     if request.method == 'POST':
-        eventId = request.form['eventId']
-        eventName = request.form['eventName']
+        eventName = request.form.get('eventName')
         description = request.form.get('description', '')
-        event_date = request.form['date']
-        location = request.form['location']
-        tag = request.form['tag']
+        event_date = request.form.get('date')
+        location = request.form.get('location')
+        tag = request.form.get('tag')
+
+        
         
         new_event = Event(
-            eventId=eventId,
+            
             eventName=eventName,
             description=description,
             date=date.fromisoformat(event_date),
             location=location,
-            tag=EventStatus[tag],  
+            tag=tag,  
             votes=0
         )
         
         db.session.add(new_event)
         db.session.commit()
-        
+
+        flash('Event added successfully!', 'success')
         return redirect(url_for('admin_index'))
     return render_template('add_event.html')
 
@@ -178,7 +180,7 @@ def edit_event(event_id):
 
     if request.method == 'POST':
         # Update the event with new form data
-        event.eventName = request.form['eventName']
+        event.eventName = request.form.get('eventName', '')
         event.description = request.form.get('description', '')
         event.date = date.fromisoformat(request.form['date'])
         event.location = request.form['location']

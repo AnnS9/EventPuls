@@ -9,13 +9,24 @@
     <p><strong>Description:</strong> {{ event.description }}</p>
     <p><strong>Date:</strong> {{ event.date }}</p>
     <p><strong>Location:</strong> {{ event.location }}</p>
-    <p><strong>Status:</strong> {{ event.tag.name }}</p> <!-- Use event.tag.name to get the enum value -->
+    <p><strong>Status:</strong> {{ event.tag.name }}</p> 
     <p><strong>Votes:</strong> {{ event.votes }}</p>
 
     <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
         <button type="submit">Vote</button>
     </form>
+ <!-- Back to homepage button -->
+    <a href="{{ url_for('index') }}">Back to Events</a>
 
-    <a href="{{ url_for('admin_index') }}">Back to Events</a>
+    <!-- Display flash messages -->
+     {% with messages = get_flashed_messages() %}
+     {% if messages %}
+         <ul>
+         {% for message in messages %}
+             <li>{{ message }}</li>
+         {% endfor %}
+         </ul>
+     {% endif %}
+ {% endwith %}
 </body>
 </html>

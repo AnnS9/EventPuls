@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+</head>
+<body>
+    <h1>Add New Event</h1>
+    <form action="{{ url_for('add_event') }}" method="post">
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" required><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br>
+
+        <label for="tag">Tag:</label>
+        <select id="tag" name="tag" required>
+            <option value="Proposed">Proposed</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Past">Past</option>
+        </select><br>
+
+        <button type="submit">Add Event</button>
+    </form>
+
+    <a href="{{ url_for('admin_index') }}">Back to Admin</a>
+</body>
+</html>

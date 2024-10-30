@@ -2,6 +2,7 @@ from datetime import datetime
 from . import db
 
 
+
 #EVENT TABLE
 class Event(db.Model):
     __tablename__ = 'events'
@@ -22,7 +23,6 @@ class Vote(db.Model):
 
     voteId = db.Column(db.Integer, primary_key=True)  # Unique identifier for each vote
     eventId = db.Column(db.Integer, db.ForeignKey('events.eventId'), nullable=False)  # Foreign key to the Event table
-    userId = db.Column(db.Integer, nullable=False)  # Identifier for the user who cast the vote
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  # Timestamp for when the vote was cast
 
     # Define relationship to Event
@@ -30,3 +30,5 @@ class Vote(db.Model):
 
     def __repr__(self):
         return f"<Vote {self.voteId} - Event {self.eventId}>"
+    
+

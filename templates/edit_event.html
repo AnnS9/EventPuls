@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Event</title>
+</head>
+<body>
+    <h2>Edit Event</h2>
+    <form method="post">
+        <label for="name">Event Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ event.name }}" required><br>
+        <label for="date">Date:</label><br>
+        <input type="text" id="date" name="date" value="{{ event.date }}" required><br>
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location" value="{{ event.location }}" required><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description">{{ event.description }}</textarea><br><br>
+        <input type="submit" value="Update Event">
+    </form>
+    <a href="{{ url_for('admin_index') }}">Back to Events List</a>
+</body>
+</html>

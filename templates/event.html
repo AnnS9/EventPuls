@@ -1,15 +1,21 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ event.eventName }}</title>
+</head>
+<body>
+    <h1>{{ event.eventName }}</h1>
+    <p><strong>Description:</strong> {{ event.description }}</p>
+    <p><strong>Date:</strong> {{ event.date }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p><strong>Status:</strong> {{ event.tag.name }}</p> <!-- Use event.tag.name to get the enum value -->
+    <p><strong>Votes:</strong> {{ event.votes }}</p>
 
-{% block content %}
-<h1>{{ event.eventName }}</h1>
-<p>{{ event.description }}</p>
-<p>Date: {{ event.date }}</p>
-<p>Location: {{ event.location }}</p>
+    <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
+        <button type="submit">Vote</button>
+    </form>
 
-<p>Total Votes: {{ total_votes }}</p>
-
-<form method="POST" action="{{ url_for('vote', event_id=event.eventId) }}">
-    {{ form.hidden_tag() }}
-    {{ form.submit() }}
-</form>
-{% endblock %}
+    <a href="{{ url_for('admin_index') }}">Back to Events</a>
+</body>
+</html>

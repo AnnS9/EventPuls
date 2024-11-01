@@ -1,7 +1,9 @@
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, Date
 from .app import db
+from flask_sqlalchemy import SQLAlchemy
 
-
+db = SQLAlchemy()
 
 #EVENT TABLE
 class Event(db.Model):
@@ -14,6 +16,16 @@ class Event(db.Model):
     location = db.Column(db.String(100), nullable=True)  # Location of the event
     tag = db.Column(db.Enum("Proposed", "Confirmed", "Past", name="event_status"), default="Proposed")  # Status of the event
     votes = db.Column(db.Integer, default=0)  # Total votes received by the event
+    image = db.Column(db.String(100), nullable=True) #Image 
+
+    def __init__(self, eventName, description, date, location, tag, votes=0, image=None):
+        self.eventName = eventName
+        self.description = description
+        self.date = date
+        self.location = location
+        self.tag = tag
+        self.votes = votes
+        self.image = image
 
     def __repr__(self):
         return f"<Event {self.eventName} - {self.date}>"

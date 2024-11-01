@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Events</title>
-    <style>
+{% extends 'base.html' %}
+
+   
+{% block content %}
+    <!-- <style>
         table {
             width: 100%;
             border-collapse: collapse;
@@ -22,11 +20,11 @@
             margin: 5px;
             cursor: pointer;
         }
-    </style>
+    </style> -->
 </head>
 <body>
-    <h1>Event Management</h1>
-    
+    <h1>Hello Admin</h1>
+  
     <table>
         <thead>
             <tr>
@@ -37,6 +35,7 @@
                 <th>Location</th>
                 <th>Status</th>
                 <th>Votes</th>
+                <th>Image</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -50,6 +49,13 @@
                 <td>{{ event.location }}</td>
                 <td>{{ event.tag.value }}</td>
                 <td>{{ event.votes }}</td>
+                <td>
+                    {% if event.image %}
+                    <img src="{{ url_for('static', filename='static/images/' + event.image) }}" alt="Event Image" style="max-width:100px;">
+                    {% else %}
+                    No image
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ url_for('admin_event_detail', event_id=event.eventId) }}" class="button">View</a>
                     <a href="{{ url_for('edit_event', event_id=event.eventId) }}" class="button">Edit</a>
@@ -67,5 +73,4 @@
     </table>
     <a href="{{ url_for('add_event') }}" class="button">Add New Event</a><br><br>
     <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
-</body>
-</html>
+{% endblock %}

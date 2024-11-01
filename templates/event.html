@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ event.eventName }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+    {% if event.image %}
+    <img src="{{ url_for('static', filename='static/images/' + event.image) }}" alt="Event Image" style="max-width:300px;">
+    {% endif %}
     <h1>{{ event.eventName }}</h1>
     <p><strong>Description:</strong> {{ event.description }}</p>
     <p><strong>Date:</strong> {{ event.date }}</p>
     <p><strong>Location:</strong> {{ event.location }}</p>
     <p><strong>Status:</strong> {{ event.tag.name }}</p> 
     <p><strong>Votes:</strong> {{ event.votes }}</p>
+    
 
     <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
         <button type="submit">Vote</button>
@@ -18,15 +17,6 @@
  <!-- Back to homepage button -->
     <a href="{{ url_for('index') }}">Back to Events</a>
 
-    <!-- Display flash messages -->
-     {% with messages = get_flashed_messages() %}
-     {% if messages %}
-         <ul>
-         {% for message in messages %}
-             <li>{{ message }}</li>
-         {% endfor %}
-         </ul>
-     {% endif %}
- {% endwith %}
-</body>
-</html>
+    
+
+{% endblock %}

@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Event</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+
+{% block content %}
     <h1>Add New Event</h1>
-    <form action="{{ url_for('add_event') }}" method="post">
+    <form method="post" enctype="multipart/form-data">
         <label for="eventName">Event Name:</label>
         <input type="text" id="eventName" name="eventName" required><br>
 
@@ -26,10 +22,20 @@
             <option value="Confirmed">Confirmed</option>
             <option value="Past">Past</option>
         </select><br>
+        <label for="image">Upload Image:</label>
+        <input type="file" name="image" required><br>
 
         <button type="submit">Add Event</button>
     </form>
-
+{% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <a href="{{ url_for('admin_index') }}">Back to Admin</a>
-</body>
-</html>
+
+    {% endblock %}

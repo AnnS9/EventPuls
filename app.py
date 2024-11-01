@@ -3,9 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-
+import os
+from flask_migrate import Migrate
+from werkzeug.utils import secure_filename
 from datetime import date
 from enum import Enum
+import logging
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events.db'
@@ -14,8 +17,7 @@ app.config['SECRET_KEY'] = 'XVL0X0UAU8NqfSoH'
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'  # Redirect to login page if not logged in
-
-
+logging.basicConfig(level=logging.DEBUG)
 
 # Enum for Event Status
 class EventStatus(Enum):
@@ -138,7 +140,12 @@ def admin_event_detail(event_id):
 
     return render_template('event.html', event=event)
 
-#EVENT EDIT
+#EVENT ADD
+UPLOAD_FOLDER = os.path.join('static', 'images')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 @app.route('/events/add', methods=['GET', 'POST'])
 def add_event():
     if request.method == 'POST':
@@ -147,33 +154,27 @@ def add_event():
         event_date = request.form.get('date')
         location = request.form.get('location')
         tag = request.form.get('tag')
-
-        
+       
         
         new_event = Event(
-            
             eventName=eventName,
             description=description,
             date=date.fromisoformat(event_date),
             location=location,
             tag=tag,  
-            votes=0
+            votes=0,
+            
         )
         
         db.session.add(new_event)
         db.session.commit()
-
         flash('Event added successfully!', 'success')
         return redirect(url_for('admin_index'))
+
+    
     return render_template('add_event.html')
 
-#LOGOUT
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
-
+#EDIT EVENT
 @app.route('/events/edit/<int:event_id>', methods=['GET', 'POST'])
 def edit_event(event_id):
     event = Event.query.get_or_404(event_id)
@@ -185,6 +186,13 @@ def edit_event(event_id):
         event.date = date.fromisoformat(request.form['date'])
         event.location = request.form['location']
         event.tag = EventStatus[request.form['tag']]
+        image = request.files['image']
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        else:
+            filename = None  
+        
 
         db.session.commit()
         flash('Event updated successfully!', 'success')
@@ -192,6 +200,7 @@ def edit_event(event_id):
 
     return render_template('edit_event.html', event=event, EventStatus=EventStatus)
 
+#DELETE EVENT
 @app.route('/events/delete/<int:event_id>', methods=['POST'])
 def delete_event(event_id):
     event = Event.query.get_or_404(event_id)
@@ -199,5 +208,13 @@ def delete_event(event_id):
     db.session.commit()
     return redirect(url_for('admin_index'))
 
+
+
+#LOGOUT
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 if __name__ == '__main__':
     app.run(debug=True)

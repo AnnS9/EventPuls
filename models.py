@@ -9,14 +9,15 @@ db = SQLAlchemy()
 class Event(db.Model):
     __tablename__ = 'events'
     
-    eventId = db.Column(db.Integer, primary_key=True)  # Unique identifier for each event
-    eventName = db.Column(db.String(100), nullable=False)  # Name of the event
-    description = db.Column(db.Text, nullable=True)  # Short description of the event
-    date = db.Column(db.Date, nullable=False)  # The date the event will take place
-    location = db.Column(db.String(100), nullable=True)  # Location of the event
-    tag = db.Column(db.Enum("Proposed", "Confirmed", "Past", name="event_status"), default="Proposed")  # Status of the event
-    votes = db.Column(db.Integer, default=0)  # Total votes received by the event
-    image = db.Column(db.String(100), nullable=True) #Image 
+    eventId = db.Column(db.Integer, primary_key=True)  
+    eventName = db.Column(db.String(100), nullable=False)  
+    description = db.Column(db.Text, nullable=True) 
+    date = db.Column(db.Date, nullable=False)  
+    location = db.Column(db.String(100), nullable=True) 
+    tag = db.Column(db.Enum("Proposed", "Confirmed", "Past", name="event_status"), default="Proposed")  
+    image_url = db.Column(db.String(255), nullable=True)  
+    votes = db.Column(db.Integer, default=0)  
+    
 
     def __init__(self, eventName, description, date, location, tag, votes=0, image=None):
         self.eventName = eventName
@@ -25,7 +26,7 @@ class Event(db.Model):
         self.location = location
         self.tag = tag
         self.votes = votes
-        self.image = image
+        
 
     def __repr__(self):
         return f"<Event {self.eventName} - {self.date}>"
@@ -33,9 +34,9 @@ class Event(db.Model):
 class Vote(db.Model):
     __tablename__ = 'votes'
 
-    voteId = db.Column(db.Integer, primary_key=True)  # Unique identifier for each vote
-    eventId = db.Column(db.Integer, db.ForeignKey('events.eventId'), nullable=False)  # Foreign key to the Event table
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  # Timestamp for when the vote was cast
+    voteId = db.Column(db.Integer, primary_key=True)  
+    eventId = db.Column(db.Integer, db.ForeignKey('events.eventId'), nullable=False)  
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)  
 
     # Define relationship to Event
     event = db.relationship('Event', backref=db.backref('votes', lazy=True))

@@ -3,10 +3,13 @@ body {
     background: rgb(246,246,250);
     background: linear-gradient(180deg, rgba(246,246,250,1) 0%, rgba(0,128,128,1) 100%);
     color: #f9f9f9;  
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    width: 100%; 
+    height: 100%; 
 }
+
 /* Navbar customization */
 .navbar-light {
     background-color: #008080 !important; 
@@ -30,27 +33,226 @@ body {
     flex-wrap: wrap;
 }
 
-.card {
+.eventCard {
     background-color: #fff;
     border-radius: 8px;
-    border: 2px solid #008080 !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 16px;
     margin: 10px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    height: 450px;
+}
+
+.btn-add{
+  width: 80% !important; 
+  height: 50px !important; 
+  border-radius: 10px !important; 
+  font-size: 1.2rem !important; 
+  background-color: #f5f7f7 !important; 
+  border: none; 
+  color: #008080!important;
+  padding: 10px;
+  
+}
+
+.card-body {
+    overflow-wrap: break-word;
+    overflow: hidden;
+    flex-grow: 1;
 }
 
 .card img {
-    margin-left: auto;
-    max-width: 150px;
-    border-radius: 8px;
+    width: 500px; 
+    height: 300px;
+    object-fit: contain;
+    border-radius: 8px; /* Rounds the image corners */
 }
-.card-body {
-    width: 100% !important;
-    overflow-wrap: break-word; /* Allow breaking long words */
-    word-wrap: none !important;
-    overflow-wrap: none !important;
+@media (max-width: 600px) {
+    .card-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .card-image img {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+}
+
+.login-card {
+    background-color: #dcf3f3 !important;  
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: #008080 !important;
+}
+.btn-primary {
+    width: 80% !important; 
+    height: 50px; 
+    border-radius: 10px; 
+    font-size: 1.2rem; 
+    background-color: #008080 !important; 
+    border: none; 
+    color: #f4f7f7;
+}
+
+.btn-primary:hover {
+    background-color: #b6eaea !important; 
+}
+.btn-center{
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+}
+
+.hero-section {
+width: 100vw;
+height: 70vh;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+overflow: hidden;
+color: white;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/hero.jpg');  
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px); /* Directly blur the background image */
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+.scroll-button {
+  margin-top: 20px;
+  background-color: #008080;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.scroll-button:hover {
+  background-color: #00b3b3;
+}
+#cardImage{
+  height: 200px;
+  width: 200px;
+  border-radius: 8px;
+}
+.topbox{
+  margin-top: 5%;
+  background-color: #008080;
+  color: #fff;
+   
+}
+.bottombox{
+  background-color: #f4f7f7;
+  padding-top: 5%;
+}
+#eventImage{
+  height: 200px;
+  width: 200px;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#eventImageLarge{
+  height: 400px;
+  width: 350px;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#voteBox{
+  border: 3px solid #008080;
+  border-radius: 8px;
+  background-color: #cbebeb;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  
+}
+h1{
+  color: #008080 !important;
+  font-size: 36px;
+}
+h2{
+  color: #008080 !important;
+  font-size: 24px;
+}
+.border{
+  border-color: #008080 !important;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #dddddd !important;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2 !important;
+}
+.button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+.tag-pill{
+  padding: 0.2rem 0.5rem;
+  background-color: #d63384; 
+  color: white; 
+  border-radius: 50px; 
+  display: inline-block;
+  
+}
+
+#eventName{
+  font-size: 32px;
+  padding-top: 200px;
+}
+#eventDate{
+  font-size: 24px;
+  
+}
+.confirmation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 5%;
+}
+
+/* Styling for the confirmation box */
+.confirmation-box {
+  background-color: #ffffff;
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+a {
+  text-decoration: none !important;
+  color: #008080 !important;
+  font-size: 1.1rem !important;
 }

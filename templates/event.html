@@ -1,22 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if event.image %}
-    <img src="{{ url_for('static', filename='static/images/' + event.image) }}" alt="Event Image" style="max-width:300px;">
-    {% endif %}
-    <h1>{{ event.eventName }}</h1>
-    <p><strong>Description:</strong> {{ event.description }}</p>
-    <p><strong>Date:</strong> {{ event.date }}</p>
-    <p><strong>Location:</strong> {{ event.location }}</p>
-    <p><strong>Status:</strong> {{ event.tag.name }}</p> 
-    <p><strong>Votes:</strong> {{ event.votes }}</p>
-    
-
+<div class="container topbox rounded-top">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4">
+        {% if event.image_url %}
+            <img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" id="eventImageLarge" >
+        {% endif %}
+        </div>
+        <div class="col-12 col-md-6 col-lg-8" >
+         
+    <p id="eventName">{{ event.eventName }}</p>
+    <p id="eventDate">{{ event.date }}</p>
+    </div>
+    </div>
+ 
+ 
+</div>
+<div class="container bottombox rounded-bottom">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-8" >
+    <p>{{ event.description }}</p>
+    <p>{{ event.location }}</p>
+    <p>{{ event.tag.name }}</p> 
+    </div>
+    <div class="col-12 col-md-6 col-lg-4" >
+        <div class="container" id="voteBox">
+        <h2>Vote for Upoming Events!</h2>
+        <h3>Help to decide the next student event by casting your vote now</h3>
+        <p>Minimum 200 votes is needed </p>
+    <p class="border border-primary border-2 p-1 d-inline-block"> {{ event.votes }} </p> 
     <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
-        <button type="submit">Vote</button>
+        <button class="btn-primary" type="submit">Vote</button><br><br>
     </form>
+    
+    </div>
+    </div>
+    </div>
  <!-- Back to homepage button -->
     <a href="{{ url_for('index') }}">Back to Events</a>
 
-    
+</div><br><br>
 
 {% endblock %}

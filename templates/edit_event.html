@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>Edit Event</h2>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <label for="eventName">Event Name:</label><br>
         <input type="text" id="eventName" name="eventName" value="{{ event.eventName }}" required><br>
         <label for="date">Date:</label><br>
@@ -18,7 +18,10 @@
                     <option value="{{ status.name }}" {% if event.tag == status %}selected{% endif %}>{{ status.value }}</option>
                 {% endfor %}
             </select>
-        </div><br><br>
+        </div>
+        <label for="image">Event Image:</label><br>
+        <input type="file" id="image_url" name="image_url" accept="image/*"><br><br>   
+        <br><br>
         <input type="submit" value="Update Event">
     </form>
     <a href="{{ url_for('admin_index') }}">Back to Events List</a>

@@ -1,31 +1,10 @@
 {% extends 'base.html' %}
-
-   
 {% block content %}
-    <!-- <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .button {
-            padding: 10px;
-            margin: 5px;
-            cursor: pointer;
-        }
-    </style> -->
-</head>
-<body>
-    <h1>Hello Admin</h1>
-  
-    <table>
+    
+<br>
+<br>
+<h1>Events</h1>
+   <table>
         <thead>
             <tr>
                 <th>Event ID</th>
@@ -50,8 +29,8 @@
                 <td>{{ event.tag.value }}</td>
                 <td>{{ event.votes }}</td>
                 <td>
-                    {% if event.image %}
-                    <img src="{{ url_for('static', filename='static/images/' + event.image) }}" alt="Event Image" style="max-width:100px;">
+                    {% if event.image_url %}
+                    <img src="{{ url_for('static', filename='/images' + event.image_url) }}" alt="Event Image" style="max-width:100px;">
                     {% else %}
                     No image
                     {% endif %}
@@ -71,6 +50,8 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ url_for('add_event') }}" class="button">Add New Event</a><br><br>
-    <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+    <br>
+    <a href="{{ url_for('add_event') }}" class="btn-add">Add New Event</a><br><br>
+   
 {% endblock %}
+</div>

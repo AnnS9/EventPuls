@@ -1,41 +1,40 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-    <h1>Add New Event</h1>
+<div class="container addEventContainer">
+    <h3>Add New Event</h3>
     <form method="post" enctype="multipart/form-data">
         <label for="eventName">Event Name:</label>
-        <input type="text" id="eventName" name="eventName" required><br>
+        <input type="text" id="eventNameinput" name="eventName" class="form-control" required><br>
 
         <label for="description">Description:</label>
-        <textarea id="description" name="description"></textarea><br>
+        <textarea id="description" name="description" class="form-control"></textarea><br>
 
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br>
+        <input type="date" id="date" name="date" class="form-control" required><br>
 
         <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required><br>
+        <input type="text" id="location" name="location" class="form-control" required><br>
 
         <label for="tag">Tag:</label>
-        <select id="tag" name="tag" required>
+        <select id="tag" name="tag" class="form-control" required>
             <option value="Proposed">Proposed</option>
             <option value="Confirmed">Confirmed</option>
             <option value="Past">Past</option>
         </select><br>
-        <label for="image">Upload Image:</label>
-        <input type="file" name="image_url" accept="image/*"><br><br>
-
-        <button type="submit">Add Event</button>
+        <label for="image">Event Image:</label><br>
+        <input type="file" id="image_url" name="image_url" class="form-control" accept="image/*"><br><br>   
+        
+        <button type="submit" class="btn-add">Add Event</button>
     </form>
-{% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-        {% for category, message in messages %}
-          <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
     <a href="{{ url_for('admin_index') }}">Back to Admin</a>
-
+  </div>
     {% endblock %}

@@ -43,7 +43,7 @@ body {
 }
 
 .btn-add{
-  width: 80% !important; 
+  
   height: 50px !important; 
   border-radius: 10px !important; 
   font-size: 1.2rem !important; 
@@ -53,30 +53,63 @@ body {
   padding: 10px;
   
 }
-
-.card-body {
-    overflow-wrap: break-word;
-    overflow: hidden;
-    flex-grow: 1;
+.btn-add:hover{
+  opacity: 0.6
+}
+.btn-view{
+  border-radius: 10px !important; 
+  font-size: 1.2rem !important; 
+  background-color: #3a959b !important; 
+  border: none; 
+  color: #f9fefe!important;
+  padding: 0px 10px 0px 10px;
+  
+}
+.btn-edit{
+  
+  border-radius: 10px !important; 
+  font-size: 1.2rem !important; 
+  background-color: #dfb55c !important; 
+  border: none; 
+  color: #f9fefe!important;
+  padding: 0px 10px 0px 10px;
+  
+}
+.btn-delete{
+  border-radius: 10px !important; 
+  font-size: 1.2rem !important; 
+  background-color: #e04b4b !important; 
+  border: none; 
+ 
+}
+.card-event {
+  max-width: 800px; /* Set a uniform width for all cards */
+  width: 100%;
+}
+.fixed-image-container {
+  width: 100%;
+  height: 300px; /* Set a fixed height */
+  overflow: hidden;
+  position: relative;
 }
 
-.card img {
-    width: 500px; 
-    height: 300px;
-    object-fit: contain;
-    border-radius: 8px; /* Rounds the image corners */
-}
-@media (max-width: 600px) {
-    .card-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .card-image img {
-        max-width: 100%; /* Full width on smaller screens */
-    }
+/* Image style */
+.fixed-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures images fill the container without stretching */
+  object-position: center; /* Centers the image if cropping is needed */
 }
 
+/* Optional: Additional styling for tag-pill or card styles */
+.tag-pill {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  font-size: 0.9em;
+  color: #fff;
+  background-color: #6c757d;
+  border-radius: 0.2rem;
+}
 .login-card {
     background-color: #dcf3f3 !important;  
     border-radius: 8px;
@@ -85,6 +118,7 @@ body {
     margin: 10px;
     font-family: 'Montserrat', sans-serif;
     color: #008080 !important;
+   width: 500px !important;
 }
 .btn-primary {
     width: 80% !important; 
@@ -107,7 +141,7 @@ body {
 
 .hero-section {
 width: 100vw;
-height: 70vh;
+height: 100vh;
 position: relative;
 display: flex;
 align-items: center;
@@ -123,7 +157,7 @@ color: white;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-image: url('../images/hero.jpg');  
   background-size: cover;
   background-position: center;
@@ -134,14 +168,17 @@ color: white;
 .hero-content {
   position: relative;
   z-index: 2;
-  color: white;
+  color: white !important;
+}
+.lead{
+  font-size: 25px !important;
 }
 .scroll-button {
   margin-top: 20px;
   background-color: #008080;
-  color: #ffffff;
+  color: #ffffff !important;
   border: none;
-  border-radius: 50px;
+  border-radius: 8px;
   padding: 10px 20px;
   font-size: 1.2rem;
   cursor: pointer;
@@ -150,11 +187,25 @@ color: white;
 .scroll-button:hover {
   background-color: #00b3b3;
 }
-#cardImage{
-  height: 200px;
-  width: 200px;
-  border-radius: 8px;
+@media (max-width: 768px) {
+  .hero-section {
+    height: 100vh;            
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;           
+  }
+
+  .hero-content p {
+    font-size: 1rem;           
+  }
+
+  .scroll-button {
+    font-size: 1.5rem;         
+  }
 }
+
+
 .topbox{
   margin-top: 5%;
   background-color: #008080;
@@ -182,30 +233,42 @@ color: white;
 #voteBox{
   border: 3px solid #008080;
   border-radius: 8px;
-  background-color: #cbebeb;
+  background-color: #f9f9f9;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
+  padding: 1rem;
   
 }
 h1{
-  color: #008080 !important;
+  color: #008080;
   font-size: 36px;
 }
 h2{
   color: #008080 !important;
   font-size: 24px;
 }
+h3{
+  color: #dcf3f3;
+  font-size: 18px !important;
+}
+
 .border{
   border-color: #008080 !important;
+}
+.table-container{
+  margin-bottom: 10%;
+
 }
 table {
   width: 100%;
   border-collapse: collapse;
+  
 }
 th, td {
     border: 1px solid #dddddd !important;
     text-align: left;
     padding: 8px;
+   
 }
 th {
     background-color: #f2f2f2 !important;
@@ -224,10 +287,16 @@ th {
   
 }
 
-#eventName{
-  font-size: 32px;
-  padding-top: 200px;
+.addEventContainer{
+  margin-bottom: 20%;
+  margin-top: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #008080;
+  color: white;
 }
+
+
 #eventDate{
   font-size: 24px;
   
@@ -255,4 +324,49 @@ a {
   text-decoration: none !important;
   color: #008080 !important;
   font-size: 1.1rem !important;
+}
+#description{
+  color: #008080;
+  text-align: justify;
+}
+#infobox{
+  padding-right: 20%;
+}
+#voteCount{
+  border: 3px solid #008080 !important;
+  padding: 0.5rem;
+  font-size: 48px;
+  font-weight: bolder;
+  border-radius: 8px;
+}
+#btn-back{
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #fdfefe;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+#btn-back:hover{
+  opacity: 0.6
+}
+.tag-pill {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  font-size: 0.9em;
+  color: #fff;
+  border-radius: 0.2rem;
+}
+
+/* Different colors for different tags */
+.tag-pill-tag1 {
+  background-color: #28a745 /* Blue */
+}
+
+.tag-pill-tag2 {
+  background-color: #bf407f; /* Green */
+}
+
+.tag-pill-tag3 {
+  background-color: #dc3545; /* Red */
 }

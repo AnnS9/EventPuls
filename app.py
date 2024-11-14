@@ -130,20 +130,21 @@ def admin_index():
     events = Event.query.all()  # Fetch all events
     return render_template('admin.html', events=events) 
 
-@app.route('/events/<int:event_id>', methods=['GET', 'POST'])
+#VOTING SYSTEM AND CONFIRMATION MESSAGE
+@app.route('/admin/events/<int:event_id>', methods=['GET', 'POST'])
 def admin_event_detail(event_id):
-    event = Event.query.get_or_404(event_id)
+    event = Event.query.get_or_404(event_id)  # Fetch the event by ID
 
     if request.method == 'POST':
-        # Increment the vote count
+        # Increment vote count
         event.votes += 1
         db.session.commit()
-
-        flash('Thank you for your vote!')
-        # Redirect to the vote confirmation page
+        
         return redirect(url_for('vote_confirmation', event_id=event_id))
 
     return render_template('event.html', event=event)
+
+
 @app.route('/events/<int:event_id>/confirmation', methods=['GET'])
 def vote_confirmation(event_id):
     
@@ -163,15 +164,13 @@ def add_event():
         event_date = request.form.get('date')
         location = request.form.get('location')
         tag = request.form.get('tag')
-        image = request.files.get('image') 
+        image = request.files.get('image_url') 
         
         if image and allowed_file(image.filename):
-            filename = secure_filename(image.filename)  
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            image.save(image_path) 
-            
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            image_url = f'images/{filename}'    
          
-            image_url = f'images/{filename}'
         else:
             image_url = None  
 

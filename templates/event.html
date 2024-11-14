@@ -8,27 +8,29 @@
         {% endif %}
         </div>
         <div class="col-12 col-md-6 col-lg-8" >
-         
-    <p id="eventName">{{ event.eventName }}</p>
-    <p id="eventDate">{{ event.date }}</p>
-    </div>
-    </div>
+            <div class="container" id="titlebox">
+                <p class="card-text tag-pill ">{{ event.tag.value }}</p> 
+                <p id="eventName ">{{ event.eventName }}</p>
+                <p id="eventDate">{{ event.date }}</p>
+        </div>
+     </div>
+ </div>
  
  
 </div>
 <div class="container bottombox rounded-bottom">
     <div class="row">
-        <div class="col-12 col-md-6 col-lg-8" >
-    <p>{{ event.description }}</p>
+        <div class="col-12 col-md-6 col-lg-8" id="infobox" >
+    <p id="description">{{ event.description }}</p>
     <p>{{ event.location }}</p>
-    <p>{{ event.tag.name }}</p> 
+    
     </div>
     <div class="col-12 col-md-6 col-lg-4" >
         <div class="container" id="voteBox">
         <h2>Vote for Upoming Events!</h2>
         <h3>Help to decide the next student event by casting your vote now</h3>
-        <p>Minimum 200 votes is needed </p>
-    <p class="border border-primary border-2 p-1 d-inline-block"> {{ event.votes }} </p> 
+        <p>*Minimum 200 votes is needed for this event </p>
+    <p class="border d-inline-block " id="voteCount"> {{ event.votes }} </p> 
     <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
         <button class="btn-primary" type="submit">Vote</button><br><br>
     </form>

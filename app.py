@@ -17,7 +17,7 @@ import logging
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'XVL0X0UAU8NqfSoH'
+
 app.config['STATIC_FOLDER'] = 'static'
 CORS(app)
 db = SQLAlchemy(app)

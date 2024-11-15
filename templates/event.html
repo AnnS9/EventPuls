@@ -3,9 +3,9 @@
 <div class="container topbox rounded-top">
     <div class="row">
         <div class="col-12 col-md-4 col-lg-4">
-        {% if event.image_url %}
-            <img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" id="eventImageLarge" >
-        {% endif %}
+            {% if event.image_url %}
+            <img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" id="eventImageLarge">
+            {% endif %}
         </div>
         <div class="col-12 col-md-8 col-lg-8 d-flex flex-column" id="textContainer">
             <div class="container title-box">
@@ -18,39 +18,39 @@
                         {{ event.tag.value }}
                     </span>
                 </p>
-                
-                <p class="card-text"id="eventName">{{ event.eventName }}</p>
-                <p class="card-text"id="eventDate">{{ event.date.strftime('%d %b %Y')}}</p>
+
+                <p class="card-text" id="eventName">{{ event.eventName }}</p>
+                <p class="card-text" id="eventDate">{{ event.date.strftime('%d %b %Y')}}</p>
             </div>
-         </div>
+        </div>
     </div>
 </div>
 <div class="container bottombox rounded-bottom">
     <div class="row">
-        <div class="col-12 col-md-6 col-lg-8" id="infobox" >
+        <div class="col-12 col-md-6 col-lg-8" id="infobox">
             <h2 id="eventInfo">About this event</h2>
             <p id="description">{{ event.description }}</p>
             <h2 id="eventInfo">Location</h2>
             <p>{{ event.location }}</p>
-    
+
+        </div>
+        {% if event.tag.value != 'Past' %}
+        <div class="col-12 col-md-6 col-lg-4">
+
+            <div class="container" id="voteBox">
+                <h2>Vote for Upoming Events!</h2>
+                <h3>Help to decide the next student event by casting your vote now</h3>
+                <p>*Minimum 200 votes is needed for this event </p>
+                <p class="border d-inline-block " id="voteCount"> {{ event.votes }} </p>
+                <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
+                    <button class="btn-primary" type="submit">Vote</button><br><br>
+                </form>
+            </div>
+
+        </div>
+        {% endif %}
     </div>
-    {% if event.tag.value != 'Past' %}
-    <div class="col-12 col-md-6 col-lg-4" >
-        
-        <div class="container" id="voteBox">
-        <h2>Vote for Upoming Events!</h2>
-        <h3>Help to decide the next student event by casting your vote now</h3>
-        <p>*Minimum 200 votes is needed for this event </p>
-    <p class="border d-inline-block " id="voteCount"> {{ event.votes }} </p> 
-    <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
-        <button class="btn-primary" type="submit">Vote</button><br><br>
-    </form>
-    </div>
-    
-    </div>
-    {% endif %}
-    </div>
- <!-- Back to homepage button -->
+    <!-- Back to homepage button -->
     <a href="{{ url_for('index') }}"><strong>Back to Events List >></strong></a>
 
 </div><br><br>

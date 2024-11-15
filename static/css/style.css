@@ -1,94 +1,101 @@
-
 body {
-    background: rgb(246,246,250);
-    background: linear-gradient(180deg, rgba(246,246,250,1) 0%, rgba(0,128,128,1) 100%);
-    color: #f9f9f9;  
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    width: 100%; 
-    height: 100%; 
+  background: rgb(246, 246, 250);
+  background: linear-gradient(180deg, rgba(246, 246, 250, 1) 0%, rgba(0, 128, 128, 1) 100%);
+  color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
 /* Navbar customization */
 .navbar-light {
-    background-color: #008080 !important; 
+  background-color: #008080 !important;
 }
 
 #brand1 {
-    color: #f6f2f2 !important;
-    font-weight: bold !important;
-    font-size: 2.0rem !important;
+  color: #f6f2f2 !important;
+  font-weight: bold !important;
+  font-size: 2.0rem !important;
 }
+
 #brand2 {
-    color: #59bebe !important;
-    font-weight: bold !important;
-    font-size: 1.5rem !important;
+  color: #59bebe !important;
+  font-weight: bold !important;
+  font-size: 1.5rem !important;
 }
 
 /* Center event cards */
 .event-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .eventCard {
-    background-color: #fff;
-    border-radius: 8px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin: 10px;
-    height: 450px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 10px;
+  height: 450px;
 }
 
-.btn-add{
-  
-  height: 50px !important; 
-  border-radius: 10px !important; 
-  font-size: 1.2rem !important; 
-  background-color: #f5f7f7 !important; 
-  border: none; 
-  color: #008080!important;
+.btn-add {
+
+  height: 50px !important;
+  border-radius: 10px !important;
+  font-size: 1.2rem !important;
+  background-color: #f5f7f7 !important;
+  border: none;
+  color: #008080 !important;
   padding: 10px;
-  
+
 }
-.btn-add:hover{
+
+.btn-add:hover {
   opacity: 0.6
 }
-.btn-view{
-  border-radius: 10px !important; 
-  font-size: 1.2rem !important; 
-  background-color: #3a959b !important; 
-  border: none; 
-  color: #f9fefe!important;
+
+.btn-view {
+  border-radius: 10px !important;
+  font-size: 1.2rem !important;
+  background-color: #3a959b !important;
+  border: none;
+  color: #f9fefe !important;
   padding: 0px 10px 0px 10px;
-  
+
 }
-.btn-edit{
-  
-  border-radius: 10px !important; 
-  font-size: 1.2rem !important; 
-  background-color: #dfb55c !important; 
-  border: none; 
-  color: #f9fefe!important;
+
+.btn-edit {
+
+  border-radius: 10px !important;
+  font-size: 1.2rem !important;
+  background-color: #dfb55c !important;
+  border: none;
+  color: #f9fefe !important;
   padding: 0px 10px 0px 10px;
-  
+
 }
-.btn-delete{
-  border-radius: 10px !important; 
-  font-size: 1.2rem !important; 
-  background-color: #e04b4b !important; 
-  border: none; 
- 
+
+.btn-delete {
+  border-radius: 10px !important;
+  font-size: 1.2rem !important;
+  background-color: #e04b4b !important;
+  border: none;
+
 }
+
 .card-event {
-  max-width: 800px; /* Set a uniform width for all cards */
+  max-width: 800px;
+  /* Set a uniform width for all cards */
   width: 100%;
 }
+
 .fixed-image-container {
   width: 100%;
-  height: 300px; 
+  height: 300px;
   overflow: hidden;
   position: relative;
 
@@ -98,8 +105,8 @@ body {
 .fixed-image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; 
-  object-position: center; 
+  object-fit: cover;
+  object-position: center;
 }
 
 
@@ -111,46 +118,49 @@ body {
   background-color: #6c757d;
   border-radius: 0.2rem;
 }
+
 .login-card {
-    background-color: #dcf3f3 !important;  
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin-top: 10px;
-    font-family: 'Montserrat', sans-serif;
-    color: #008080 !important;
-   width: 500px !important;
-   margin-bottom: 20%;
+  background-color: #dcf3f3 !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  color: #008080 !important;
+  width: 500px !important;
+  margin-bottom: 20%;
 }
+
 .btn-primary {
-    width: 80% !important; 
-    height: 50px; 
-    border-radius: 10px; 
-    font-size: 1.2rem; 
-    background-color: #008080 !important; 
-    border: none; 
-    color: #f4f7f7;
+  width: 80% !important;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  background-color: #008080 !important;
+  border: none;
+  color: #f4f7f7;
 }
 
 .btn-primary:hover {
-    background-color: #b6eaea !important; 
+  background-color: #b6eaea !important;
 }
-.btn-center{
+
+.btn-center {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
 }
 
 .hero-section {
-width: 100vw;
-height: 100vh;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-overflow: hidden;
-color: white;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  color: white;
 }
 
 .hero-section::before {
@@ -160,10 +170,11 @@ color: white;
   left: 0;
   width: 100%;
   height: 100vh;
-  background-image: url('../images/hero.jpg');  
+  background-image: url('../images/hero.jpg');
   background-size: cover;
   background-position: center;
-  filter: blur(2px); /* Directly blur the background image */
+  filter: blur(2px);
+  /* Directly blur the background image */
   z-index: 1;
 }
 
@@ -172,9 +183,11 @@ color: white;
   z-index: 2;
   color: white !important;
 }
-.lead{
+
+.lead {
   font-size: 25px !important;
 }
+
 .scroll-button {
   margin-top: 20px;
   background-color: #008080;
@@ -186,137 +199,163 @@ color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
 .scroll-button:hover {
   background-color: #00b3b3;
 }
+
 @media (max-width: 768px) {
   .hero-section {
-    height: 100vh;            
+    height: 100vh;
   }
 
   .hero-content h1 {
-    font-size: 2rem;           
+    font-size: 2rem;
   }
 
   .hero-content p {
-    font-size: 1rem;           
+    font-size: 1rem;
   }
 
   .scroll-button {
-    font-size: 1.5rem;         
+    font-size: 1.5rem;
   }
 }
 
 
-.topbox{
+.topbox {
   margin-top: 5%;
   background-color: none;
   color: #fff;
- 
-   
+
+
 }
-.bottombox{
+
+.bottombox {
   background-color: #f4f7f7;
   padding-top: 5%;
 }
-#eventImage{
+
+#eventImage {
   height: 200px;
   width: 200px;
   border-radius: 8px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
-#eventImageLarge{
+
+#eventImageLarge {
   width: 100%;
-    height: 300px;
+  height: 300px;
   border-radius: 8px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 0px;
-  object-fit: cover; 
-  object-position: center; 
+  object-fit: cover;
+  object-position: center;
 }
-.title-box{
+
+.title-box {
   margin-top: 10rem;
 }
-.title-box p + p{
+
+.title-box p+p {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
-@media (min-width: 992px) { /* 992px is the breakpoint for 'lg' in Bootstrap */
+
+@media (min-width: 992px) {
+
+  /* 992px is the breakpoint for 'lg' in Bootstrap */
   .textContainer {
-      display: flex;
-      flex-direction: column;
-      height: 100%; /* Ensures it occupies full height for alignment */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Ensures it occupies full height for alignment */
   }
 
-  
+
 }
+
 .d-flex.flex-column {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Optional, ensures full height for better alignment */
+  height: 100%;
+  /* Optional, ensures full height for better alignment */
 }
-#voteBox{
+
+#voteBox {
   border: 3px solid #008080;
   border-radius: 8px;
   background-color: #f9f9f9;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   padding: 1rem;
-  
+
 }
-h1{
+
+h1 {
   color: #008080;
   font-size: 36px;
 }
-h2{
+
+h2 {
   color: #008080 !important;
   font-size: 24px;
 }
-h3{
+
+h3 {
   color: #dcf3f3;
   font-size: 18px !important;
 }
-#eventInfo{
-  color:rgb(57, 57, 57) !important;
+
+#eventInfo {
+  color: rgb(57, 57, 57) !important;
 }
-.border{
+
+.border {
   border-color: #008080 !important;
 }
-.table-container{
+
+.table-container {
   margin-bottom: 10%;
 
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
-  
-}
-th, td {
-    border: 1px solid #dddddd !important;
-    text-align: left;
-    padding: 8px;
-   
-}
-th {
-    background-color: #f2f2f2 !important;
-}
-.button {
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-}
-.tag-pill{
-  padding: 0.2rem 0.5rem;
-  background-color: #d63384; 
-  color: white; 
-  border-radius: 50px; 
-  display: inline-block;
-  
+
 }
 
-.addEventContainer{
+th,
+td {
+  border: 1px solid #dddddd !important;
+  text-align: left;
+  padding: 8px;
+
+}
+
+th {
+  background-color: #f2f2f2 !important;
+}
+
+.button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.tag-pill {
+  padding: 0.2rem 0.5rem;
+  background-color: #d63384;
+  color: white;
+  border-radius: 50px;
+  display: inline-block;
+
+}
+
+.addEventContainer {
   margin-bottom: 20%;
   margin-top: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -324,14 +363,16 @@ th {
   background-color: #008080;
   color: white;
 }
-#eventName{
+
+#eventName {
   font-size: 32px !important;
 }
 
-#eventDate{
+#eventDate {
   font-size: 24px;
-  
+
 }
+
 .confirmation-container {
   display: flex;
   justify-content: center;
@@ -352,26 +393,31 @@ th {
   max-width: 400px;
   width: 100%;
 }
+
 a {
   text-decoration: none !important;
   color: #008080 !important;
   font-size: 1.1rem !important;
 }
-#description{
-  
+
+#description {
+
   text-align: justify;
 }
-#infobox{
+
+#infobox {
   padding-right: 20%;
 }
-#voteCount{
+
+#voteCount {
   border: 3px solid #008080 !important;
   padding: 0.5rem;
   font-size: 48px;
   font-weight: bolder;
   border-radius: 8px;
 }
-#btn-back{
+
+#btn-back {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
@@ -379,9 +425,11 @@ a {
   border-radius: 10px;
   margin-bottom: 2rem;
 }
-#btn-back:hover{
+
+#btn-back:hover {
   opacity: 0.6
 }
+
 .tag-pill {
   display: inline-block;
   padding: 0.2em 0.6em;
@@ -392,19 +440,25 @@ a {
 
 /* Different colors for different tags */
 .tag-pill-tag1 {
-  background-color: #28a745 /* Blue */
+  background-color: #28a745
+    /* Blue */
 }
 
 .tag-pill-tag2 {
-  background-color: #bf407f; /* Green */
+  background-color: #bf407f;
+  /* Green */
 }
 
 .tag-pill-tag3 {
-  background-color: #dc3545; /* Red */
+  background-color: #dc3545;
+  /* Red */
 }
+
 footer {
-  background-color: #333; /* Dark background color */
-  color: #fff; /* White text */
+  background-color: #333;
+  /* Dark background color */
+  color: #fff;
+  /* White text */
   margin-top: 32px;
   font-size: 0.9em;
 }
@@ -430,6 +484,7 @@ footer .f-links a.btn-footer {
   margin-right: 10px;
   text-decoration: none;
 }
+
 .footer-button {
   color: #aaa !important;
   background-color: #444;
@@ -437,7 +492,7 @@ footer .f-links a.btn-footer {
   padding: 10px;
   font-size: 0.9em;
   border-radius: 4px;
-  text-decoration: none; 
+  text-decoration: none;
   display: inline-block;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -445,14 +500,15 @@ footer .f-links a.btn-footer {
 .footer-button:hover {
   background-color: #555;
   color: #fff;
-} 
+}
 
 
 /* Responsive alignment for footer button */
 .container-fluid.d-flex.justify-content-end {
   padding-right: 15px;
 }
-.footer-link-bottom{
+
+.footer-link-bottom {
   color: #aaa !important;
   font-size: 1rem !important;
 }
@@ -464,6 +520,7 @@ footer .f-links a.btn-footer {
   font-size: 0.8em;
   text-align: center;
 }
-ul .navbar-nav{
+
+ul .navbar-nav {
   font-size: 1.5rem !important;
 }

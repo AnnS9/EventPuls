@@ -5,28 +5,30 @@ from flask_cors import CORS
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
-import os
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
 from datetime import date
-from datetime import datetime
+from datetime import timedelta
 from enum import Enum
-
 import logging
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events.db'
+app.config['SESSION_COOKIE_HTTPONLY'] = True # Prevent JavaScript from accessing the session cookie
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events.db' #setting up local database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['STATIC_FOLDER'] = 'static'
-CORS(app)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30) #Setting session lifetime
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') #Getting secret_key assigned securely in environment
+app.config['STATIC_FOLDER'] = 'static' #setting up static folder
+
+CORS(app) #enabling CORS
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'  # Redirect to login page if not logged in
 logging.basicConfig(level=logging.DEBUG)
-migrate = Migrate(app, db)
-# Enum for Event Status
-class EventStatus(Enum):
+migrate = Migrate(app, db) #connection to database to track changes
+
+class EventStatus(Enum): # Enum for Event Status
     Proposed = "Proposed"
     Confirmed = "Confirmed"
     Past = "Past"
@@ -61,49 +63,30 @@ class User(db.Model, UserMixin):  # Ensure User inherits UserMixin
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    # Flask-Login requires these methods
     @property
     def is_active(self):
-        return True  # or implement logic to check if the user is active
+        return True  
 
     @property
     def is_authenticated(self):
-        return True  # This indicates the user is logged in
+        return True  
 
     @property
     def is_anonymous(self):
-        return False  # This indicates the user is not anonymous
+        return False  
 
     def get_id(self):
-        return str(self.user_id)  # Return the user ID as a string
+        return str(self.user_id)  
 
 # Initialize database
 with app.app_context():
     db.create_all()  # Create the events table
     db.session.commit()
 
-    # Create an admin user if it doesn't already exist
-    admin_username = 'admin'
-    admin_password = 'your_secure_password'  # Choose a strong password
-
-    # Check if the admin user already exists
-    existing_user = User.query.filter_by(username=admin_username).first()
-    if not existing_user:
-        # Create new admin user
-        new_admin = User(username=admin_username)
-        new_admin.set_password(admin_password)  # Hash the password
-
-        # Add and commit to the database
-        db.session.add(new_admin)
-        db.session.commit()
-        print(f"Admin user '{admin_username}' added successfully!")
-    else:
-        print("Admin user already exists.")
-
-
+#Flask-Login to load the user from the database 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return User.query.get(int(user_id)) # Retrieve the user by ID from the database
 
 #CHANGE TAG FROM PROPOSED AND CONFIRMED TO PAST WHEN IS PAST DATE
 @app.before_request
@@ -124,12 +107,13 @@ def update_event_tags():
     # Commit the changes to the database
     db.session.commit()
 
+#EVENT LIST ON INDEX PAGE
 @app.route('/')
 def index():
-    events = Event.query.all()  
+    events = Event.query.all()   # Query the database to retrieve all events from the 'Event' table
     return render_template('index.html', events=events)
-
-if __name__ == " __main__ ":
+#Flask web server, making it accessible on all network interfaces
+if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
              
 #LOGIN TO APP FOR ADMIN USER
@@ -148,6 +132,7 @@ def login():
 
     return render_template('login.html')
 
+# Query the database to retrieve all events from the 'Event' table to admin panel
 @app.route('/admin')
 @login_required
 def admin_index():
@@ -164,7 +149,7 @@ def admin_event_detail(event_id):
         event.votes += 1
 
         # Check if votes have reached 200 and update the tag to 'Confirmed' if not already
-        if event.votes >= 25 and event.tag != EventStatus.Confirmed:
+        if event.votes >= 200 and event.tag != EventStatus.Confirmed:
             event.tag = EventStatus.Confirmed  # Update the tag to 'Confirmed'
 
         # Commit the changes to the database
@@ -176,11 +161,13 @@ def admin_event_detail(event_id):
     # Render the event details page
     return render_template('event.html', event=event)
 
+#Confirmation page if vote added
 @app.route('/events/<int:event_id>/confirmation', methods=['GET'])
 def vote_confirmation(event_id):
     
     event = Event.query.get_or_404(event_id)
     return render_template('vote_confirmation.html', event=event)
+
 #EVENT ADD
 UPLOAD_FOLDER = os.path.join('./static', './images')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -204,8 +191,6 @@ def add_event():
          
         else:
             image_url = None  
-
-   
         
         new_event = Event(
             eventName=eventName,
@@ -215,15 +200,12 @@ def add_event():
             tag=tag,  
             image_url=image_url,
             votes=0,
-            
         )
         
         db.session.add(new_event)
         db.session.commit()
         flash('Event added successfully!', 'success')
         return redirect(url_for('admin_index'))
-
-    
     return render_template('add_event.html')
 
 #UPDATE EVENT

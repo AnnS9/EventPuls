@@ -3,35 +3,38 @@
 {% block content %}
 <div class="container-fluid hero-section">
     <div class="row text-center text-white">
-      <div class="col hero-content">
-        <h1 class="display-4"><strong>Vote for the Next Campus Event</strong></h1>
-        <p class="lead"><strong>Your voice, your event! Vote now and decide what's next.</strong></p>
-        <a href="#voteSection" class="scroll-button"><i class='fas fa-angle-double-down'></i></a>
-      </div>
+        <div class="col hero-content">
+            <h1 class="display-4"><strong>Vote for the Next Campus Event</strong></h1>
+            <p class="lead"><strong>Your voice, your event! Vote now and decide what's next.</strong></p>
+            <a href="#voteSection" class="scroll-button"><i class='fas fa-angle-double-down'></i></a>
+        </div>
     </div>
-  </div>
+</div>
 
-  <div id="voteSection" class="container mt-5 d-flex flex-column align-items-center">
+<div id="voteSection" class="container mt-5 d-flex flex-column align-items-center">
     <div class="event-container w-100 mt-5 d-flex flex-column align-items-center">
         {% if events %}
         {% for event in events %}
-        
+
         <!-- Event Card -->
         <div class="card card-event mb-3 w-80">
-            <a href="{{ url_for('admin_event_detail', event_id=event.eventId) }}" class="text-decoration-none text-dark">
+            <a href="{{ url_for('admin_event_detail', event_id=event.eventId) }}"
+                class="text-decoration-none text-dark">
                 <div class="row g-0 align-items-center">
-                    
+
                     <!-- Image Column (Left) -->
                     <div class="col-12 col-md-5">
                         <div class="fixed-image-container">
                             {% if event.image_url %}
-                            <img src="{{ url_for('static', filename=event.image_url) }}" class="rounded-left" alt="Event Image">
+                            <img src="{{ url_for('static', filename=event.image_url) }}" class="rounded-left"
+                                alt="Event Image">
                             {% else %}
-                            <img src="https://via.placeholder.com/300x200" class="rounded-left alt="Default Event Image"> 
+                            <img src="https://via.placeholder.com/300x200" class="rounded-left alt=" Default Event
+                                Image">
                             {% endif %}
                         </div>
                     </div>
-                    
+
                     <!-- Text Content Column (Right) -->
                     <div class="col-12 col-md-7">
                         <div class="card-body">
@@ -54,7 +57,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    
+
                 </div>
             </a>
         </div>

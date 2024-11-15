@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    
+
 <br>
 <br>
 
 <div class="container-fluid table-container">
-<h1>Events</h1>
-   <table>
+    <h1>Events</h1>
+    <table>
         <thead>
             <tr>
                 <th>Event ID</th>
@@ -32,7 +32,8 @@
                 <td>{{ event.votes }}</td>
                 <td>
                     {% if event.image_url %}
-                    <img src="{{ url_for('static', filename='/images' + event.image_url) }}" alt="Event Image" style="max-width:100px;">
+                    <img src="{{ url_for('static', filename='/images' + event.image_url) }}" alt="Event Image"
+                        style="max-width:100px;">
                     {% else %}
                     No image
                     {% endif %}
@@ -40,7 +41,8 @@
                 <td>
                     <a href="{{ url_for('admin_event_detail', event_id=event.eventId) }}" class="btn-view">View</a><br>
                     <a href="{{ url_for('edit_event', event_id=event.eventId) }}" class="btn-edit">Edit</a><br>
-                    <form action="{{ url_for('delete_event', event_id=event.eventId) }}" method="post" onsubmit="return confirmDelete()">
+                    <form action="{{ url_for('delete_event', event_id=event.eventId) }}" method="post"
+                        onsubmit="return confirmDelete()">
                         <button type="submit" class="btn-delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </form>
                 </td>
@@ -56,4 +58,3 @@
     <a href="{{ url_for('add_event') }}" class="btn-add">Add New Event</a><br><br>
 </div>
 {% endblock %}
-

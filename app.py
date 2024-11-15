@@ -9,7 +9,9 @@ import os
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
 from datetime import date
+from datetime import datetime
 from enum import Enum
+
 import logging
 
 app = Flask(__name__)
@@ -103,12 +105,31 @@ with app.app_context():
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+#CHANGE TAG FROM PROPOSED AND CONFIRMED TO PAST WHEN IS PAST DATE
+@app.before_request
+def update_event_tags():
+    db.create_all()
+    today = date.today()
+    
+    # Query for events where the date has passed and the tag is either 'Proposed' or 'Confirmed'
+    events_to_update = Event.query.filter(
+        Event.date < today, 
+        Event.tag.in_([EventStatus.Proposed, EventStatus.Confirmed])
+    ).all()
+    
+    # Loop through and update their tag to 'Past'
+    for event in events_to_update:
+        event.tag = EventStatus.Past  # Change the tag to 'Past'
+    
+    # Commit the changes to the database
+    db.session.commit()
+
 @app.route('/')
 def index():
-    events = Event.query.all()  # Fetch all events from the database
+    events = Event.query.all()  
     return render_template('index.html', events=events)
 
-
+#LOGIN TO APP FOR ADMIN USER
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -117,8 +138,8 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user and user.check_password(password):
-            login_user(user)  # Log the user in
-            return redirect(url_for('admin_index'))  # Redirect to admin page
+            login_user(user)  
+            return redirect(url_for('admin_index')) 
         else:
             flash('Invalid username or password')
 
@@ -127,23 +148,30 @@ def login():
 @app.route('/admin')
 @login_required
 def admin_index():
-    events = Event.query.all()  # Fetch all events
+    events = Event.query.all()  
     return render_template('admin.html', events=events) 
 
-#VOTING SYSTEM AND CONFIRMATION MESSAGE
+#VOTING SYSTEM
 @app.route('/admin/events/<int:event_id>', methods=['GET', 'POST'])
 def admin_event_detail(event_id):
-    event = Event.query.get_or_404(event_id)  # Fetch the event by ID
+    event = Event.query.get_or_404(event_id) 
 
     if request.method == 'POST':
-        # Increment vote count
+        # Increment the vote count
         event.votes += 1
+
+        # Check if votes have reached 200 and update the tag to 'Confirmed' if not already
+        if event.votes >= 25 and event.tag != EventStatus.Confirmed:
+            event.tag = EventStatus.Confirmed  # Update the tag to 'Confirmed'
+
+        # Commit the changes to the database
         db.session.commit()
-        
+
+        # Redirect to the confirmation page or wherever you need
         return redirect(url_for('vote_confirmation', event_id=event_id))
 
+    # Render the event details page
     return render_template('event.html', event=event)
-
 
 @app.route('/events/<int:event_id>/confirmation', methods=['GET'])
 def vote_confirmation(event_id):
@@ -195,7 +223,7 @@ def add_event():
     
     return render_template('add_event.html')
 
-#EDIT EVENT
+#UPDATE EVENT
 @app.route('/events/edit/<int:event_id>', methods=['GET', 'POST'])
 def edit_event(event_id):
     event = Event.query.get_or_404(event_id)
@@ -207,6 +235,9 @@ def edit_event(event_id):
         event.date = date.fromisoformat(request.form['date'])
         event.location = request.form['location']
         event.tag = EventStatus[request.form['tag']]
+        # Validate form fields server-side
+        if not event.eventName or not event.date or not event.location:
+            return "Please fill out all required fields!", 400
         image = request.files['image_url']
         if image and allowed_file(image.filename):
             filename = secure_filename(image.filename)
@@ -229,7 +260,6 @@ def delete_event(event_id):
     db.session.delete(event)
     db.session.commit()
     return redirect(url_for('admin_index'))
-
 
 
 #LOGOUT

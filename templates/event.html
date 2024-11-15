@@ -2,30 +2,41 @@
 {% block content %}
 <div class="container topbox rounded-top">
     <div class="row">
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-4 col-lg-4">
         {% if event.image_url %}
             <img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" id="eventImageLarge" >
         {% endif %}
         </div>
-        <div class="col-12 col-md-6 col-lg-8" >
-            <div class="container" id="titlebox">
-                <p class="card-text tag-pill ">{{ event.tag.value }}</p> 
-                <p id="eventName ">{{ event.eventName }}</p>
-                <p id="eventDate">{{ event.date }}</p>
-        </div>
-     </div>
- </div>
- 
- 
+        <div class="col-12 col-md-8 col-lg-8 d-flex flex-column" id="textContainer">
+            <div class="container title-box">
+                <p class="card-text">
+                    <span class="tag-pill 
+                        {% if event.tag.value == 'Confirmed' %}tag-pill-tag1
+                        {% elif event.tag.value == 'Proposed' %}tag-pill-tag2
+                        {% else %}tag-pill-tag3
+                        {% endif %}">
+                        {{ event.tag.value }}
+                    </span>
+                </p>
+                
+                <p class="card-text"id="eventName">{{ event.eventName }}</p>
+                <p class="card-text"id="eventDate">{{ event.date.strftime('%d %b %Y')}}</p>
+            </div>
+         </div>
+    </div>
 </div>
 <div class="container bottombox rounded-bottom">
     <div class="row">
         <div class="col-12 col-md-6 col-lg-8" id="infobox" >
-    <p id="description">{{ event.description }}</p>
-    <p>{{ event.location }}</p>
+            <h2 id="eventInfo">About this event</h2>
+            <p id="description">{{ event.description }}</p>
+            <h2 id="eventInfo">Location</h2>
+            <p>{{ event.location }}</p>
     
     </div>
+    {% if event.tag.value != 'Past' %}
     <div class="col-12 col-md-6 col-lg-4" >
+        
         <div class="container" id="voteBox">
         <h2>Vote for Upoming Events!</h2>
         <h3>Help to decide the next student event by casting your vote now</h3>
@@ -34,12 +45,13 @@
     <form action="{{ url_for('admin_event_detail', event_id=event.eventId) }}" method="post">
         <button class="btn-primary" type="submit">Vote</button><br><br>
     </form>
+    </div>
     
     </div>
-    </div>
+    {% endif %}
     </div>
  <!-- Back to homepage button -->
-    <a href="{{ url_for('index') }}">Back to Events</a>
+    <a href="{{ url_for('index') }}"><strong>Back to Events List >></strong></a>
 
 </div><br><br>
 

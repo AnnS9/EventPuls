@@ -49,7 +49,9 @@
                             <p class="card-text">{{ event.date }}</p>
                             <p class="card-text">{{ event.time }}</p>
                             <p class="card-text">{{ event.location }}</p>
+                            {% if event.tag.value != 'Past' and event.tag.value != 'Confirmed' %}
                             <p class="card-text"><strong>Votes:</strong> {{ event.votes }}</p>
+                            {% endif %}
                         </div>
                     </div>
                     

@@ -113,9 +113,8 @@ def index():
     events = Event.query.all()   # Query the database to retrieve all events from the 'Event' table
     return render_template('index.html', events=events)
 #Flask web server, making it accessible on all network interfaces
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
-             
+
+       
 #LOGIN TO APP FOR ADMIN USER
 @app.route('/login', methods=['GET', 'POST'])
 def login():

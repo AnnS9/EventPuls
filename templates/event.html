@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container topbox rounded-top">
     <div class="row">
-        <div class="col-12 col-md-4 col-lg-4">
+        <div class="col-12 col-md-4 col-lg-4"> <!-- Event image dynamically deployed based on event id from static directory-->
             {% if event.image_url %}
             <img src="{{ url_for('static', filename=event.image_url) }}" alt="Event Image" id="eventImageLarge">
             {% endif %}
@@ -10,7 +10,8 @@
         <div class="col-12 col-md-8 col-lg-8 d-flex flex-column" id="textContainer">
             <div class="container title-box">
                 <p class="card-text">
-                    <span class="tag-pill 
+                    <!-- Different tag colours depending on event status-->
+                    <span class="tag-pill  
                         {% if event.tag.value == 'Confirmed' %}tag-pill-tag1
                         {% elif event.tag.value == 'Proposed' %}tag-pill-tag2
                         {% else %}tag-pill-tag3
@@ -26,7 +27,7 @@
     </div>
 </div>
 <div class="container bottombox rounded-bottom">
-    <div class="row">
+    <div class="row"> <!-- Event information-->
         <div class="col-12 col-md-6 col-lg-8" id="infobox">
             <h2 id="eventInfo">About this event</h2>
             <p id="description">{{ event.description }}</p>
@@ -36,7 +37,7 @@
         </div>
         {% if event.tag.value != 'Past' %}
         <div class="col-12 col-md-6 col-lg-4">
-
+<!-- voting system-->
             <div class="container" id="voteBox">
                 <h2>Vote for Upoming Events!</h2>
                 <h3>Help to decide the next student event by casting your vote now</h3>

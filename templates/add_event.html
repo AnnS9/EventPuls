@@ -26,15 +26,7 @@
 
     <button type="submit" class="btn-add">Add Event</button>
   </form>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-  <ul>
-    {% for category, message in messages %}
-    <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {% endwith %}
+ 
   <a href="{{ url_for('admin_index') }}">Back to Admin</a>
 </div>
 {% endblock %}

@@ -35,7 +35,7 @@
             <p>{{ event.location }}</p>
 
         </div>
-        {% if event.tag.value != 'Past' %}
+        {% if event.tag.value != "Past" and event.tag.value != "Confirmed" %}
         <div class="col-12 col-md-6 col-lg-4">
 <!-- voting system-->
             <div class="container" id="voteBox">

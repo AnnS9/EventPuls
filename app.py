@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, jsonify
+from flask import Flask
 from flask_cors import CORS
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -22,7 +22,10 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30) #Setting sessio
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') #Getting secret_key assigned securely in environment
 app.config['STATIC_FOLDER'] = 'static' #setting up static folder
 
-CORS(app) #enabling CORS
+
+# Enable CORS for specific routes and origins
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5000", "https://eventpuls.onrender.com"]}})  
+
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'  # Redirect to login page if not logged in

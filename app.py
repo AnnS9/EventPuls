@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 from flask_migrate import Migrate
 from werkzeug.utils import secure_filename
+from sqlalchemy import select, insert
 from datetime import date
 from datetime import timedelta
 from enum import Enum
@@ -80,7 +81,7 @@ class User(db.Model, UserMixin):  # Ensure User inherits UserMixin
 
 # Initialize database
 with app.app_context():
-    db.create_all()  # Create the events table
+    db.create_all()  # Create the  table
     db.session.commit()
 
 #Flask-Login to load the user from the database 
@@ -141,7 +142,13 @@ def admin_index():
 #VOTING SYSTEM
 @app.route('/admin/events/<int:event_id>', methods=['GET', 'POST'])
 def admin_event_detail(event_id):
-    event = Event.query.get_or_404(event_id) 
+
+    stmt = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(stmt).scalar_one_or_none()
+
+    if event is None:
+        return redirect(url_for('admin_index'))  # or handle 404
+
 
     if request.method == 'POST':
         # Increment the vote count
@@ -164,7 +171,12 @@ def admin_event_detail(event_id):
 @app.route('/events/<int:event_id>/confirmation', methods=['GET'])
 def vote_confirmation(event_id):
     
-    event = Event.query.get_or_404(event_id)
+    stmt = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(stmt).scalar_one_or_none()
+
+    if event is None:
+        return redirect(url_for('admin_index'))  # or handle 404
+
     return render_template('vote_confirmation.html', event=event)
 
 #EVENT ADD
@@ -191,7 +203,7 @@ def add_event():
         else:
             image_url = None  
         
-        new_event = Event(
+        stmt = insert(Event).values(
             eventName=eventName,
             description=description,
             date=date.fromisoformat(event_date),
@@ -200,8 +212,8 @@ def add_event():
             image_url=image_url,
             votes=0,
         )
-        
-        db.session.add(new_event)
+
+        db.session.execute(stmt)
         db.session.commit()
         flash('Event added successfully!', 'success')
         return redirect(url_for('admin_index'))
@@ -210,7 +222,11 @@ def add_event():
 #UPDATE EVENT
 @app.route('/events/edit/<int:event_id>', methods=['GET', 'POST'])
 def edit_event(event_id):
-    event = Event.query.get_or_404(event_id)
+    stmt = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(stmt).scalar_one_or_none()
+
+    if event is None:
+        return redirect(url_for('admin_index'))  # or handle 404
 
     if request.method == 'POST':
         # Update the event with new form data
@@ -219,9 +235,13 @@ def edit_event(event_id):
         event.date = date.fromisoformat(request.form['date'])
         event.location = request.form['location']
         event.tag = EventStatus[request.form['tag']]
-        # Validate form fields server-side
+
+         # Validate form fields server-side
         if not event.eventName or not event.date or not event.location:
             return "Please fill out all required fields!", 400
+
+        # Handling image upload
+     
         image = request.files['image_url']
         if image and allowed_file(image.filename):
             filename = secure_filename(image.filename)
@@ -229,20 +249,29 @@ def edit_event(event_id):
             event.image_url = f'images/{filename}' 
         else:
             filename = None  
-        
 
+        # Commit the changes to the database
         db.session.commit()
         flash('Event updated successfully!', 'success')
         return redirect(url_for('admin_index'))
 
     return render_template('edit_event.html', event=event, EventStatus=EventStatus)
 
+
 #DELETE EVENT
 @app.route('/events/delete/<int:event_id>', methods=['POST'])
 def delete_event(event_id):
-    event = Event.query.get_or_404(event_id)
+    # Query for the event using the new SQLAlchemy syntax
+    stmt = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(stmt).scalar_one_or_none()
+
+    if event is None:
+        return redirect(url_for('admin_index'))  # or handle 404
+
+    # Delete the event
     db.session.delete(event)
     db.session.commit()
+    flash('Event deleted successfully!', 'success')
     return redirect(url_for('admin_index'))
 
 

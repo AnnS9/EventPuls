@@ -18,7 +18,7 @@
   <nav class="navbar navbar-expand-lg navbar-light ">
     <div class="container-fluid">
       <a class="navbar-brand" id="brand1" href="{{ url_for('index') }}">EventPulse</a>
-      {% if request.path != url_for('admin_index') %}
+      {% if current_user.is_authenticated and request.path != url_for('admin_index') %}
       <a class="navbar-brand" id="brand2" href="{{ url_for('admin_index') }}">Admin Panel</a>
       {% endif %}
 
@@ -93,12 +93,13 @@
           <div class="row justify-content-center text-white">
             <div class="col-auto">
               <a href="https://www.termsfeed.com/live/f3ef7bae-0065-45b0-a134-18945e9e9598"
-                class="footer-link-bottom">Privacy Policy</a>
+                class="footer-link-bottom" target="_blank">Privacy Policy</a>
+
             </div>
 
             <div class="col-auto">
               <a href="https://www.termsfeed.com/live/984b313c-70ca-4795-993a-67aada35decd"
-                class="footer-link-bottom">Cookies</a>
+                class="footer-link-bottom" target="_blank">Cookies</a>
             </div>
           </div>
           <div class="row text-center text-white pt-2">

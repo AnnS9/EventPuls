@@ -143,8 +143,8 @@ def admin_index():
 @app.route('/admin/events/<int:event_id>', methods=['GET', 'POST'])
 def admin_event_detail(event_id):
 
-    stmt = select(Event).filter(Event.eventId == event_id)
-    event = db.session.execute(stmt).scalar_one_or_none()
+    Events = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(Events).scalar_one_or_none()
 
     if event is None:
         return redirect(url_for('admin_index'))  # or handle 404
@@ -171,8 +171,8 @@ def admin_event_detail(event_id):
 @app.route('/events/<int:event_id>/confirmation', methods=['GET'])
 def vote_confirmation(event_id):
     
-    stmt = select(Event).filter(Event.eventId == event_id)
-    event = db.session.execute(stmt).scalar_one_or_none()
+    Events = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(Events).scalar_one_or_none()
 
     if event is None:
         return redirect(url_for('admin_index'))  # or handle 404
@@ -203,7 +203,7 @@ def add_event():
         else:
             image_url = None  
         
-        stmt = insert(Event).values(
+        Events = insert(Event).values(
             eventName=eventName,
             description=description,
             date=date.fromisoformat(event_date),
@@ -213,7 +213,7 @@ def add_event():
             votes=0,
         )
 
-        db.session.execute(stmt)
+        db.session.execute(Events)
         db.session.commit()
         flash('Event added successfully!', 'success')
         return redirect(url_for('admin_index'))
@@ -222,8 +222,8 @@ def add_event():
 #UPDATE EVENT
 @app.route('/events/edit/<int:event_id>', methods=['GET', 'POST'])
 def edit_event(event_id):
-    stmt = select(Event).filter(Event.eventId == event_id)
-    event = db.session.execute(stmt).scalar_one_or_none()
+    Events = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(Events).scalar_one_or_none()
 
     if event is None:
         return redirect(url_for('admin_index'))  # or handle 404
@@ -262,8 +262,8 @@ def edit_event(event_id):
 @app.route('/events/delete/<int:event_id>', methods=['POST'])
 def delete_event(event_id):
     # Query for the event using the new SQLAlchemy syntax
-    stmt = select(Event).filter(Event.eventId == event_id)
-    event = db.session.execute(stmt).scalar_one_or_none()
+    Events = select(Event).filter(Event.eventId == event_id)
+    event = db.session.execute(Events).scalar_one_or_none()
 
     if event is None:
         return redirect(url_for('admin_index'))  # or handle 404

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-from flask_cors import CORS
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
@@ -24,7 +23,6 @@ app.config['STATIC_FOLDER'] = 'static' #setting up static folder
 
 
 # Enable CORS for specific routes and origins
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5000", "https://eventpuls.onrender.com"]}})  
 
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)

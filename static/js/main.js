@@ -1,8 +1,10 @@
-document.querySelector("#cookies-btn").addEventListener("click", () => {
-    document.querySelector("#cookies").style.display = "none";
-    // CALL THE SETCOOKIE() FUNCTION
-    setCookie("cookie", true, 30);
-})
+document.addEventListener('DOMContentLoaded', function () {
+    // Your existing code here
+    document.querySelector("#cookies-btn").addEventListener("click", () => {
+        document.querySelector("#cookies").style.display = "none";
+        setCookie("cookie", true, 30);
+    });
+
 
 // CREATES A COOKIE (EXPIRES IN 30 DAYS)
 function setCookie(cName, cValue, expDays) {
@@ -34,4 +36,4 @@ function cookieMessage() {
 
 // CALL THE COOKIEMESSAGE() FUNCTION ON PAGE LOAD
 window.addEventListener("load", cookieMessage);
-
+});

@@ -216,7 +216,7 @@ def add_event():
 
         db.session.execute(Events)
         db.session.commit()
-        flash('Event added successfully!', 'success')
+        
         return redirect(url_for('admin_index'))
     return render_template('add_event.html')
 
@@ -253,7 +253,7 @@ def edit_event(event_id):
 
         # Commit the changes to the database
         db.session.commit()
-        flash('Event updated successfully!', 'success')
+        
         return redirect(url_for('admin_index'))
 
     return render_template('edit_event.html', event=event, EventStatus=EventStatus)
@@ -272,7 +272,6 @@ def delete_event(event_id):
     # Delete the event
     db.session.delete(event)
     db.session.commit()
-    flash('Event deleted successfully!', 'success')
     return redirect(url_for('admin_index'))
 
 

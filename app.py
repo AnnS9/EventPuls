@@ -156,7 +156,7 @@ def admin_event_detail(event_id):
         event.votes += 1
 
         # Check if votes have reached 200 and update the tag to 'Confirmed' if not already
-        if event.votes >= 10 and event.tag != EventStatus.Confirmed:
+        if event.votes >= 200 and event.tag != EventStatus.Confirmed:
             event.tag = EventStatus.Confirmed  # Update the tag to 'Confirmed'
 
         # Commit the changes to the database
